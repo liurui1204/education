@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingClass.dao.EduTrainingClassEmployeeApplyDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingClass.entity.EduTrainingClassEmployeeApplyEntity" id="eduTrainingClassEmployeeApplyMap">
+        <result property="id" column="id"/>
+        <result property="trainingClassId" column="trainingClassId"/>
+        <result property="employeeId" column="employeeId"/>
+        <result property="memo" column="memo"/>
+        <result property="status" column="status"/>
+        <result property="checkNextDepartmentId" column="checkNextDepartmentId"/>
+        <result property="checkTime" column="checkTime"/>
+        <result property="checkBy" column="checkBy"/>
+        <result property="checkByDepartment" column="checkByDepartment"/>
+        <result property="checkMemo" column="checkMemo"/>
+        <result property="createTime" column="createTime"/>
+        <result property="createDepartmentId" column="createDepartmentId"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+    <select id="view" resultType="java.util.Map">
+        SELECT a.id,a.`status`,b.* FROM edu_training_class_employee_apply a
+            LEFT JOIN edu_employee b
+                ON a.employeeId = b.id WHERE a.trainingClassId = #{id}
+    </select>
+
+
+</mapper>

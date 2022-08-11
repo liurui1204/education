@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.site.dao.EduSiteSwiperDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.site.entity.EduSiteSwiperEntity" id="eduSiteSwiperMap">
+        <result property="id" column="id"/>
+        <result property="swiperTitle" column="swiperTitle"/>
+        <result property="swiperUrl" column="swiperUrl"/>
+        <result property="swiperPicSrc" column="swiperPicSrc"/>
+        <result property="isBlank" column="isBlank"/>
+        <result property="swiperOrder" column="swiperOrder"/>
+        <result property="createTime" column="createTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+
+
+</mapper>

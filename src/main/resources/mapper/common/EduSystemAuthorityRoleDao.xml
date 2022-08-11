@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.common.dao.EduSystemAuthorityRoleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduSystemAuthorityRoleEntity" id="eduSystemAuthorityRoleMap">
+        <result property="id" column="id"/>
+        <result property="authorityId" column="authorityId"/>
+        <result property="authorityCode" column="authorityCode"/>
+        <result property="rolesId" column="rolesId"/>
+        <result property="roleCode" column="roleCode"/>
+    </resultMap>
+
+
+</mapper>

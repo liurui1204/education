@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: local
+    # 可选的值
+    # dev 公司测试电脑用
+    # local 自己本机用
+    # test 海关的测试环境
+    # prod 海关的正式环境

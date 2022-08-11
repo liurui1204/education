@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingClass.dao.EduTrainingClassCommentDao">
+
+	<select id="findByDate" resultType="int">
+        select count(*) from edu_training_class_comment where
+        to_days(createTime) = to_days(#{date}) and trainingClassId = #{trainingClassId}
+    </select>
+
+</mapper>

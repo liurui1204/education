@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.dao.EduTrainingPlanDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.entity.EduTrainingPlanEntity"
+               id="eduTrainingPlanMap">
+        <result property="id" column="id"/>
+        <result property="planCode" column="planCode"/>
+        <result property="planName" column="planName"/>
+        <result property="trainingType" column="trainingType"/>
+        <result property="trainingTrainee" column="trainingTrainee"/>
+        <result property="trainingMonth" column="trainingMonth"/>
+        <result property="trainingClassHour" column="trainingClassHour"/>
+        <result property="trainingPeopleNum" column="trainingPeopleNum"/>
+        <result property="trainingContent" column="trainingContent"/>
+        <result property="trainingObjective" column="trainingObjective"/>
+        <result property="trainingAddr" column="trainingAddr"/>
+        <result property="feeOrigin" column="feeOrigin"/>
+        <result property="applyDepartmentId" column="applyDepartmentId"/>
+        <result property="applyDepartmentName" column="applyDepartmentName"/>
+        <result property="trainingWay" column="trainingWay"/>
+        <result property="tel" column="tel"/>
+        <result property="memo" column="memo"/>
+        <result property="status" column="status"/>
+        <result property="applyTime" column="applyTime"/>
+        <result property="isInner" column="isInner"/>
+        <result property="checkNextDepartmentId" column="checkNextDepartmentId"/>
+        <result property="checkTime" column="checkTime"/>
+        <result property="checkBy" column="checkBy"/>
+        <result property="checkByDepartment" column="checkByDepartment"/>
+        <result property="checkMemo" column="checkMemo"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+    <select id="queryEduTrainingPlanList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanListVo">
+        SELECT
+        a.id,a.planCode,a.planName,a.trainingMonth,a.trainingType,a.trainingPeopleNum,a.trainingClassHour,a.`status`,a.checkBy
+        FROM edu_training_plan a
+        WHERE a.isEnable = 1
+        <if test="isInner != null and isInner != ''">
+            and a.isInner = #{isInner}
+        </if>
+        ORDER BY a.createTime desc,a.checkTime desc
+    </select>
+    <select id="queryEduTrainingPlanCkeckList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanListCheckVo">
+        SELECT a.id,a.status,a.createTime,
+        a.planCode,a.planName,a.trainingType,a.trainingPeopleNum,a.trainingMonth,a.trainingClassHour,b.employeeName,a.applyDepartmentName FROM
+        edu_training_plan a
+            LEFT JOIN edu_employee b ON a.createBy = b.id
+            LEFT JOIN edu_system_confirm c ON a.id = c.originalId
+        where a.isEnable = 1 and c.status>0 and a.isInner = 0
+        <if test="status != null and status != ''">
+            and a.status = #{status}
+        </if>
+        <if test="employeeId !=null and employeeId !=''">
+            and c.confirmEmployeeId = #{employeeId}
+        </if>
+        <if test="applyDepartmentId !=null and applyDepartmentId != ''">
+            and a.applyDepartmentId = #{applyDepartmentId}
+        </if>
+        order by a.createTime DESC
+    </select>
+    <select id="queryPlanIdName" resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.entity.EduTrainingPlanEntity">
+        select a.*
+        from edu_training_plan a
+        WHERE a.isEnable = 1
+          AND a.`status` = 3
+          AND a.trainingWay = #{trainingWay}
+          AND a.createBy = #{userId}
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryFlew" resultType="java.util.Map">
+        SELECT a.id as planId,
+               b.id as flewId,
+               c.id AS employeeId,
+               b.createTime,
+               b.operationLink,
+               b.transactionMotion,
+               b.remark,
+               c.employeeName,
+               c.role_else
+        FROM edu_training_plan a
+                 LEFT JOIN edu_flow_trace b ON a.id = b.relevanceId
+                 LEFT JOIN edu_employee c ON b.createBy = c.id
+        WHERE a.id = #{id}
+
+    </select>
+    <select id="queryList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT a.id,
+               a.planCode,
+               a.planName,
+               a.trainingMonth,
+               a.trainingContent,
+               a.trainingPeopleNum,
+               a.trainingClassHour,
+               a.needExpenditure,
+               a.`status`,
+               a.checkName
+        FROM edu_training_plan a
+        WHERE a.isEnable = 1
+          AND a.isInner = 1
+        <if test="departmentName !=null and departmentName != ''">
+            and a.applyDepartmentName = #{departmentName}
+        </if>
+        <if test="planCode !=null and planCode !=''">
+            and a.planCode = #{planCode}
+        </if>
+        <if test="planName !=null and planName !=''">
+            and a.planName = #{planName}
+        </if>
+        <if test="trainingMonth !=null and trainingMonth !=''">
+            and a.trainingMonth =#{trainingMonth}
+        </if>
+        <if test="trainingType !=null and trainingType !=''">
+            and a.trainingType = #{trainingType}
+        </if>
+        <if test="status !=null and status !=''">
+            and a.status = #{status}
+        </if>
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryCheckList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT a.id,
+               a.planCode,
+               a.planName,
+               a.trainingMonth,
+               a.trainingContent,
+               a.trainingPeopleNum,
+               a.trainingClassHour,
+               a.needExpenditure,
+               a.`status`,
+               b.id as employeeId,
+               b.employeeName,
+               a.applyDepartmentName,
+               a.trainingClassHour as studyTime
+        FROM edu_training_plan a
+                 LEFT JOIN edu_employee b ON a.checkBy = b.id
+        WHERE a.isEnable = 1
+          and a.isInner = 1
+          AND a.checkBy = #{userId}
+          and a.status = #{status}
+          and a.phase = 1
+        <if test="departmentName !=null and departmentName != ''">
+            and a.applyDepartmentName = #{departmentName}
+        </if>
+        <if test="applyDepartmentId !=null and applyDepartmentId != ''">
+            and a.applyDepartmentId = #{applyDepartmentId}
+        </if>
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryFlow" resultType="java.util.Map">
+        SELECT
+            a.id,
+            a.transactionMotion,
+            a.operationLink,
+            a.remark,
+            a.createTime,
+            b.employeeName,
+            b.h4aAllPathName,
+            d.`name` as name
+        FROM
+            edu_flow_trace a
+                LEFT JOIN edu_employee b ON a.createBy = b.id
+                LEFT JOIN edu_system_roles d ON a.roleCode = d.`code`
+        WHERE a.relevanceId =#{planId}
+        order by a.createTime desc
+    </select>
+
+    <select id="findTotalSimple" resultType="integer">
+        select COUNT(*) FROM edu_training_plan
+        WHERE YEAR(createTime)=YEAR(NOW()) AND (status = 3) AND isInner = #{num}
+    </select>
+    <select id="findPeopleNum" resultType="integer">
+        select SUM(trainingPeopleNum) FROM edu_training_plan
+        WHERE YEAR(createTime)=YEAR(NOW()) AND (status = 3) AND isInner = #{num}
+    </select>
+    <select id="findPostponeNum" resultType="integer">
+        select count(*) from edu_training_plan a LEFT JOIN edu_training_class b on a.id = b.trainingPlanId
+        where a.trainingMonth &lt; DATE_FORMAT(b.createTime,'%Y-%m') and a.`status`=3
+    </select>
+    <select id="findTotal" resultType="integer">
+        select COUNT(*) FROM edu_training_plan
+        WHERE YEAR(createTime)=YEAR(NOW()) AND (status = 3)
+    </select>
+
+</mapper>

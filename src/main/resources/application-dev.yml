@@ -1,0 +1,113 @@
+server:
+  port: 8933
+  servlet:
+    context-path:  /nanjingHaiguanEducation
+spring:
+  application:
+    name: nanjingHaiguanEducation
+  # 数据库配置
+  datasource:
+#    url: jdbc:mysql://imohekeji.mysql.polardb.zhangbei.rds.aliyuncs.com:3306/nanjinghaiguan?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    username: sjrws
+#    password: 1234Qwer
+    url: jdbc:mysql://127.0.0.1:3306/nanjinghaiguan?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    配置连接池
+    druid:
+      validation-query: select 1
+      test-while-idle: true
+      initial-size: 10
+      min-idle: 5
+      max-active: 10
+      test-on-borrow: true
+      test-on-return: true
+      time-between-eviction-runs-millis: 3000000
+      min-evictable-idle-time-millis: 30000
+  # redis 配置
+  redis:
+    open: true  # 是否开启redis缓存  true开启   false关闭
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:     # 密码（默认为空）
+    timeout: 6000  # 连接超时时长（毫秒）
+    prefix: nanjingHaiguanEducation
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: 10000      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  typeAliasesPackage: com.mohe.nanjinghaiguaneducation.modules.*.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 3
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: false
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+    #序列接口实现类配置
+    #key-generator: com.baomidou.springboot.xxx
+    #逻辑删除配置
+    #logic-delete-value: 0
+    #logic-not-delete-value: 1
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+    #自定义SQL注入器
+    #sql-injector: com.baomidou.springboot.xxx
+    configuration:
+      map-underscore-to-camel-case: false
+      cache-enabled: false
+
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    dao: debug
+mohe:
+  # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+  jwt:
+    # 加密秘钥·
+    secret: f4e2e52034348f86b67cde581c0f9eb5[mohe-api]
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: token
+  file:
+    filePath: "/home/fileUpload"
+  #待办事项的配置 这个配置要连接vpn才能用
+  schedule-setting:
+    switchStatus: "off"  # on-开启 off-关闭
+    certNo: "NO123456"
+    servicesName: "HGUnifyScheduleService"
+    servicesUrl: "http://192.168.202.131/HGTYBGWF/HGUnifyScheduleService.svc"
+    busUrl: "bus的地址"
+    busServiceName: "Demo1"
+    clientId: "NJZHJY"
+    #代办事项点击后跳转的页面-本系统的URL（前半部分，通常是 http://xxx.xxx.xxx.xxx:8080/index.jsp)
+    callbackUrl: "http://localhost:8080/index.jsp"
+    #servicesId: ""
+    #代办事项相关配置
+    applicationName: "NJHG_EDUCATION"
+    programName: "南京海关智慧教育平台"
+    #来源项目ID
+    sourceId: "2be96731-7e81-4260-8c20-4c803adda1e3"
+    #目的
+    purpose: "待办"
+    xmlEncoding: "UTF-8" # UTF-8  GBK
+

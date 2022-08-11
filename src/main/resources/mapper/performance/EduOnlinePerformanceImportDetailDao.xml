@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.performance.dao.EduOnlinePerformanceImportDetailDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.performance.entity.EduOnlinePerformanceImportDetailEntity" id="eduOnlinePerformanceImportDetailMap">
+        <result property="id" column="id"/>
+        <result property="importId" column="importId"/>
+        <result property="name" column="name"/>
+        <result property="department" column="department"/>
+        <result property="employeeCode" column="employeeCode"/>
+        <result property="jobTitle" column="jobTitle"/>
+        <result property="enrollMethod" column="enrollMethod"/>
+        <result property="startTime" column="startTime"/>
+        <result property="progress" column="progress"/>
+        <result property="endTime" column="endTime"/>
+        <result property="pass" column="pass"/>
+        <result property="stageProgress" column="stageProgress"/>
+        <result property="lession1" column="lession1"/>
+        <result property="lession2" column="lession2"/>
+        <result property="lession3" column="lession3"/>
+        <result property="lession4" column="lession4"/>
+        <result property="lession5" column="lession5"/>
+        <result property="lession6" column="lession6"/>
+        <result property="lession7" column="lession7"/>
+        <result property="lession8" column="lession8"/>
+        <result property="lession9" column="lession9"/>
+        <result property="lession10" column="lession10"/>
+        <result property="lession11" column="lession11"/>
+        <result property="lession12" column="lession12"/>
+        <result property="lession13" column="lession13"/>
+        <result property="lession14" column="lession14"/>
+        <result property="lession15" column="lession15"/>
+        <result property="lession16" column="lession16"/>
+        <result property="lession17" column="lession17"/>
+        <result property="lession18" column="lession18"/>
+        <result property="lession19" column="lession19"/>
+        <result property="lession20" column="lession20"/>
+        <result property="lession21" column="lession21"/>
+        <result property="lession22" column="lession22"/>
+        <result property="lession23" column="lession23"/>
+        <result property="lession24" column="lession24"/>
+        <result property="lession25" column="lession25"/>
+        <result property="lession26" column="lession26"/>
+        <result property="lession27" column="lession27"/>
+        <result property="lession28" column="lession28"/>
+        <result property="lession29" column="lession29"/>
+        <result property="lession30" column="lession30"/>
+        <result property="processRemark" column="processRemark"/>
+        <result property="status" column="status"/>
+        <result property="errorMessage" column="errorMessage"/>
+        <result property="lastModify" column="lastModify"/>
+    </resultMap>
+
+
+</mapper>

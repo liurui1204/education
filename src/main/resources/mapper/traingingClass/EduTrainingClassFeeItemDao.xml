@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingClass.dao.EduTrainingClassFeeItemDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingClass.entity.EduTrainingClassFeeItemEntity" id="eduTrainingClassFeeItemMap">
+        <result property="id" column="id"/>
+        <result property="trainingClassId" column="trainingClassId"/>
+        <result property="feeType" column="feeType"/>
+        <result property="itemName" column="itemName"/>
+        <result property="fee" column="fee"/>
+        <result property="classHour" column="classHour"/>
+        <result property="peopleNum" column="peopleNum"/>
+        <result property="teacherFee" column="teacherFee"/>
+        <result property="totalFee" column="totalFee"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+
+    <select id="findTotalFee" resultType="integer" parameterType="integer">
+        select SUM(totalFee) FROM edu_training_class_fee_item a
+        LEFT JOIN edu_training_class b on a.trainingClassId = b.id
+        WHERE YEAR(a.createTime)=YEAR(NOW()) AND a.feeType = 2
+        <if test="trainingWay != 2">
+            AND b.trainingWay = #{trainingWay}
+        </if>
+    </select>
+
+    <select id="findFinalFee" resultType="integer">
+        select SUM(totalFee) FROM edu_training_class_fee_item a
+        LEFT JOIN edu_training_class b on a.trainingClassId = b.id
+        WHERE YEAR(a.createTime)=YEAR(NOW()) AND a.feeType = 5 AND b.phase =4
+        AND b.status=3
+    </select>
+
+    <select id="findMonthTotalFee" resultType="com.mohe.nanjinghaiguaneducation.modules.site.entity.EduSiteTrainingClassMonthFeeEntity">
+        select MONTH(a.createTime)as `month`,
+        IFNULL(SUM(totalFee),0) as num
+        FROM edu_training_class_fee_item a
+        LEFT JOIN edu_training_class b on a.trainingClassId = b.id
+        WHERE YEAR(a.createTime)=YEAR(NOW()) AND a.feeType = 2
+        GROUP BY `month`
+    </select>
+</mapper>

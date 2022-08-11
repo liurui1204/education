@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.teacherOuter.dao.EduOutTeacherDao">
+
+
+
+        <resultMap type="com.mohe.nanjinghaiguaneducation.modules.teacherOuter.entity.EduOuterTeacher" id="eduOuterTeacherMap">
+        <result property="id" column="id"/>
+        <result property="teacherCode" column="teacher_code"/>
+        <result property="teacherName" column="teacher_name"/>
+        <result property="teacherLevel" column="teacher_level"/>
+        <result property="company" column="company"/>
+        <result property="teacherMobile" column="teacher_mobile"/>
+        <result property="teacherEmail" column="teacher_email"/>
+        <result property="status" column="status"/>
+        <result property="applyTime" column="apply_time"/>
+        <result property="checkNextDepartmentId" column="check_next_department_id"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="checkBy" column="check_by"/>
+        <result property="checkMemo" column="check_memo"/>
+        <result property="employStartDate" column="employ_start_date"/>
+        <result property="employEndDate" column="employ_end_date"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="isEnable" column="is_enable"/>
+    </resultMap>
+    <select id="queryOuterTeacherList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.teacherOuter.vo.EduOuterTeacherVo">
+        SELECT a.id,a.teacherName,a.company,a.teacherMobile,a.teacherEmail,a.status,a.employStartDate,a.employEndDate,a.teacherLevel,a.departmentLevel,
+        a.isEnable FROM edu_outer_teacher a
+        where  1=1
+        <if test="teacherName != null and teacherName != ''">
+            and a.teacherName like concat('%',#{teacherName},'%')
+        </if>
+        <if test="teacherMobile != null and teacherMobile != ''">
+            and a.teacherMobile = #{teacherMobile}
+        </if>
+        <if test="status != null and status != ''">
+            and a.status = #{status}
+        </if>
+        <if test="employStartDate != null and employStartDate != ''">
+            and a.employStartDate &gt;= #{employStartDate}
+        </if>
+        <if test="employEndDate != null and employEndDate != ''">
+            and a.employEndDate &lt;= #{employEndDate}
+        </if>
+        <if test="createBy !=null and createBy !=''">
+            and a.createBy = #{createBy}
+        </if>
+        ORDER BY a.createTime DESC
+    </select>
+
+
+</mapper>

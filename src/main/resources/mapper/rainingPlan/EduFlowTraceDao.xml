@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.dao.EduFlowTraceDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.entity.EduFlowTraceEntity" id="eduFlowTraceMap">
+        <result property="id" column="id"/>
+        <result property="relevanceId" column="relevanceId"/>
+        <result property="transactionMotion" column="transactionMotion"/>
+        <result property="operationLink" column="operationLink"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="createTime"/>
+        <result property="createBy" column="createBy"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.performance.dao.EduStudyPerformanceImportDetailDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.performance.entity.EduStudyPerformanceImportDetailEntity" id="eduStudyPerformanceImportDetailMap">
+        <result property="id" column="id"/>
+        <result property="importId" column="importId"/>
+        <result property="employeeCode" column="employeeCode"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="department" column="department"/>
+        <result property="level" column="level"/>
+        <result property="jobTitle" column="jobTitle"/>
+        <result property="ZZNLTime" column="ZZNLTime"/>
+        <result property="ZZNLScore" column="ZZNLScore"/>
+        <result property="YWNLTime" column="YWNLTime"/>
+        <result property="YWNLScore" column="YWNLScore"/>
+        <result property="ZFNLTime" column="ZFNLTime"/>
+        <result property="ZFNLScore" column="ZFNLScore"/>
+        <result property="offlineTrainingTime" column="offlineTrainingTime"/>
+        <result property="onlineTrainingTime" column="onlineTrainingTime"/>
+        <result property="totalTime" column="totalTime"/>
+        <result property="totalScore" column="totalScore"/>
+        <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
+        <result property="errorMessage" column="errorMessage"/>
+        <result property="lastModify" column="lastModify"/>
+        <result property="exClass1Time" column="exClass1Time"/>
+        <result property="exClass1Score" column="exClass1Score"/>
+        <result property="exClass2Time" column="exClass2Time"/>
+        <result property="exClass2Score" column="exClass2Score"/>
+        <result property="exClass3Time" column="exClass3Time"/>
+        <result property="exClass3Score" column="exClass3Score"/>
+        <result property="exClass4Time" column="exClass4Time"/>
+        <result property="exClass4Score" column="exClass4Score"/>
+    </resultMap>
+
+    <select id="findAll" resultType="com.mohe.nanjinghaiguaneducation.modules.performance.entity.EduStudyPerformanceImportDetailEntity">
+        select * from edu_study_performance_import_detail where status=1 and importId=#{id} limit 500000
+    </select>
+
+</mapper>

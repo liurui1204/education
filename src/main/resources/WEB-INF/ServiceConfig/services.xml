@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soaService>
+    <certNo>NO123456</certNo>
+    <directServices>
+        <directService name="HGUnifyScheduleService" url="http://192.168.202.131/HGTYBGWF/HGUnifyScheduleService.svc"/>
+    </directServices>
+    <busServices busUrl="bus的地址">
+        <busService name="Demo1"/>
+    </busServices>
+</soaService>
+

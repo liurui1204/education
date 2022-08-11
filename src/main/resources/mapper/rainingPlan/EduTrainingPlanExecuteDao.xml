@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.dao.EduTrainingPlanExecuteDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.entity.EduTrainingPlanExecuteEntity" id="eduTrainingPlanExecuteMap">
+        <result property="id" column="id"/>
+        <result property="planCode" column="planCode"/>
+        <result property="planName" column="planName"/>
+        <result property="trainingType" column="trainingType"/>
+        <result property="trainingTrainee" column="trainingTrainee"/>
+        <result property="trainingMonth" column="trainingMonth"/>
+        <result property="trainingClassHour" column="trainingClassHour"/>
+        <result property="trainingPeopleNum" column="trainingPeopleNum"/>
+        <result property="trainingContent" column="trainingContent"/>
+        <result property="trainingObjective" column="trainingObjective"/>
+        <result property="trainingAddr" column="trainingAddr"/>
+        <result property="feeOrigin" column="feeOrigin"/>
+        <result property="applyDepartmentId" column="applyDepartmentId"/>
+        <result property="applyDepartmentName" column="applyDepartmentName"/>
+        <result property="trainingWay" column="trainingWay"/>
+        <result property="tel" column="tel"/>
+        <result property="memo" column="memo"/>
+        <result property="status" column="status"/>
+        <result property="applyTime" column="applyTime"/>
+        <result property="isInner" column="isInner"/>
+        <result property="checkNextDepartmentId" column="checkNextDepartmentId"/>
+        <result property="checkTime" column="checkTime"/>
+        <result property="checkBy" column="checkBy"/>
+        <result property="checkByDepartment" column="checkByDepartment"/>
+        <result property="checkMemo" column="checkMemo"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+        <result property="remark" column="remark"/>
+        <result property="needExpenditure" column="needExpenditure"/>
+        <result property="sendCheckBy" column="sendCheckBy"/>
+        <result property="phase" column="phase"/>
+        <result property="trainingPlanId" column="trainingPlanId"/>
+    </resultMap>
+    <select id="queryList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT a.id,
+               a.planCode,
+               a.planName,
+               a.trainingMonth,
+               a.trainingContent,
+               a.trainingPeopleNum,
+               a.trainingClassHour,
+               a.startTime,
+               a.endTime,
+               a.studyTime,
+               a.`status`,
+               b.id as employeeId,
+               b.employeeName
+        FROM edu_training_plan_execute a
+                 LEFT JOIN edu_employee b ON a.checkBy = b.id
+        WHERE a.isEnable = 1
+          AND a.isInner = 1
+          AND a.status != 1
+        <if test="year !=null and year != ''">
+            and YEAR(a.createTime) = #{year}
+        </if>
+        <if test="startTime !=null and startTime != ''">
+            and a.startTime &gt;= #{startTime}
+        </if>
+        <if test="endTime !=null and endTime != ''">
+            and a.endTime &lt;= #{endTime}
+        </if>
+        <if test="className !=null and className != ''">
+            and a.planName like concat('%',#{className},'%')
+        </if>
+        <if test="applyDepartmentId !=null and applyDepartmentId != ''">
+            and a.applyDepartmentId = #{applyDepartmentId}
+        </if>
+        <if test="applyDepartmentName !=null and applyDepartmentName != ''">
+            and a.applyDepartmentName = #{applyDepartmentName}
+        </if>
+
+        ORDER BY a.createTime desc
+    </select>
+
+    <select id="queryLists"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT a.id,
+        a.planCode,
+        a.planName,
+        a.phase,
+        a.trainingMonth,
+        a.trainingContent,
+        a.trainingPeopleNum,
+        a.trainingClassHour,
+        a.startTime,
+        a.endTime,
+        a.studyTime,
+        a.`status`,
+        b.id as employeeId,
+        a.applyDepartmentId,
+        a.applyDepartmentName,
+        b.employeeName
+        FROM edu_training_plan_execute a
+        LEFT JOIN edu_employee b ON a.checkBy = b.id
+        WHERE a.isEnable = 1
+        AND a.isInner = 1
+        <if test="year !=null and year != ''">
+            and YEAR(a.createTime) = #{year}
+        </if>
+        <if test="startTime !=null and startTime != ''">
+            and a.startTime &gt;= #{startTime}
+        </if>
+        <if test="endTime !=null and endTime != ''">
+            and a.endTime &lt;= #{endTime}
+        </if>
+        <if test="className !=null and className != ''">
+            and a.planName like concat('%',#{className},'%')
+        </if>
+        <if test="applyDepartmentId !=null and applyDepartmentId != ''">
+            and a.applyDepartmentId = #{applyDepartmentId}
+        </if>
+        <if test="applyDepartmentName !=null and applyDepartmentName != ''">
+            and a.applyDepartmentName = #{applyDepartmentName}
+        </if>
+
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryApplyList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT a.id,
+               a.planCode,
+               a.planName,
+               a.trainingMonth,
+               a.trainingContent,
+               a.trainingPeopleNum,
+               a.trainingClassHour,
+               a.startTime,
+               a.endTime,
+               a.studyTime,
+               a.`status`,
+               b.id as employeeId,
+               b.employeeName as checkName,
+               a.applyDepartmentName
+        FROM edu_training_plan_execute a
+                 LEFT JOIN edu_employee b ON a.checkBy = b.id
+        where ((a.status = #{status} and a.phase = 2)
+            <if test="status == 3">
+            or a.phase>2
+            </if>
+            )
+        and b.id = #{userId}
+        <if test="departmentName !=null and departmentName != ''">
+            and a.applyDepartmentName = #{departmentName}
+        </if>
+
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryJukList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT   DISTINCT    a.id,
+        a.planCode,
+        a.planName,
+        a.trainingMonth,
+        a.trainingContent,
+        a.trainingPeopleNum,
+        a.startTime,
+        a.endTime,
+        a.studyTime,
+        a.trainingClassHour,
+        b.`status`,
+        c.employeeName as checkName,
+        a.applyDepartmentName
+        FROM edu_training_plan_execute a
+        LEFT JOIN edu_system_confirm b ON a.id = b.originalId
+        LEFT JOIN edu_employee c on  b.confirmEmployeeId = c.id
+        where b.status = #{status}
+        and b.confirmEmployeeId = #{userId}
+        <if test="applyDepartmentId !=null and applyDepartmentId != ''">
+            and a.applyDepartmentId = #{applyDepartmentId}
+        </if>
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryExcelList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingPlan.vo.EduTrainingPlanLSListVo">
+        SELECT a.id,
+               a.planCode,
+               a.planName,
+               a.trainingMonth,
+               a.trainingContent,
+               a.trainingPeopleNum,
+               a.trainingClassHour,
+               a.startTime,
+               a.endTime,
+               a.studyTime,
+               a.`status`,
+               b.id as employeeId,
+               b.employeeName
+        FROM edu_training_plan_execute a
+                 LEFT JOIN edu_employee b ON a.checkBy = b.id
+        WHERE a.isEnable = 1
+          AND a.isInner = 1
+        ORDER BY a.createTime desc
+    </select>
+    <select id="queryListFlow" resultType="java.util.Map">
+        SELECT
+            a.*,
+            e.employeeName,
+            GROUP_CONCAT(sr.`name` ) as `name`
+        FROM
+            edu_flow_trace AS a
+                LEFT JOIN edu_employee AS e ON a.createBy = e.id
+                LEFT JOIN edu_system_roles_employee AS re ON a.createBy = re.employeeId
+                LEFT JOIN edu_system_roles AS sr ON sr.`code` = re.roleCode
+        WHERE
+            a.relevanceId = #{planId}
+        GROUP BY a.id
+        ORDER BY
+            a.createTime DESC
+    </select>
+
+    <select id="trainingClassSimple" resultType="integer">
+        select count(*) from
+            edu_training_plan_execute where (status=3 or phase>1)  and isInner =1 and YEAR (createTime)= YEAR (NOW())
+    </select>
+    <select id="findVisits" resultType="integer">
+        select SUM(trainingPeopleNum) from
+            edu_training_plan_execute where (status=3 or phase>1)  and isInner =1 and YEAR (createTime)= YEAR (
+            NOW())
+    </select>
+
+    <select id="trainingClass" resultType="com.mohe.nanjinghaiguaneducation.modules.site.entity.EduSiteTrainingPlanExecuteEntity">
+        select applyDepartmentName as departmentName , count(*) as num from
+            edu_training_plan_execute where (status=3 or phase>1)  and isInner =1 and YEAR (createTime)= YEAR (NOW())
+        GROUP BY applyDepartmentName
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--<mapper namespace="com.mohe.nanjingHaiguanEducation.dao.EduSystemAuthorityDao">-->
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.common.dao.EduSystemAuthorityDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduSystemAuthorityEntity" id="eduSystemAuthorityMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="path" column="path"/>
+        <result property="authorityType" column="authorityType"/>
+        <result property="memo" column="memo"/>
+        <result property="lastUpdateTime" column="lastUpdateTime"/>
+        <result property="type" column="type"/>
+        <result property="order" column="order"/>
+        <result property="hidden" column="hidden"/>
+    </resultMap>
+
+
+</mapper>

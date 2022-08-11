@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.site.dao.EduSiteNavDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.site.entity.EduSiteNavEntity" id="eduSiteNavMap">
+        <result property="id" column="id"/>
+        <result property="parentId" column="parentId"/>
+        <result property="navTitle" column="navTitle"/>
+        <result property="navUrl" column="navUrl"/>
+        <result property="isBlank" column="isBlank"/>
+        <result property="navOrder" column="navOrder"/>
+        <result property="createTime" column="createTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+
+
+</mapper>

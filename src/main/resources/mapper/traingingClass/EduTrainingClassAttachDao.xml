@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingClass.dao.EduTrainingClassAttachDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingClass.entity.EduTrainingClassAttachEntity" id="eduTrainingClassAttachMap">
+        <result property="id" column="id"/>
+        <result property="attachTitle" column="attachTitle"/>
+        <result property="trainingClassId" column="trainingClassId"/>
+        <result property="attachType" column="attachType"/>
+        <result property="attachUri" column="attachUri"/>
+        <result property="attachPath" column="attachPath"/>
+        <result property="attachFileName" column="attachFileName"/>
+        <result property="isShowIndex" column="isShowIndex"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+
+    <select id="queryPageByTeacherId" resultType="com.mohe.nanjinghaiguaneducation.modules.trainingClass.entity.EduTrainingClassAttachEntity">
+        select * from edu_training_class_attach where `courseId` in (
+            select `id` as `courseId` from edu_training_class_course where `teacherId`=#{teacherId}
+        ) LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getCountByTeacherId" resultType="int" >
+        select count(*) from edu_training_class_attach where `courseId` in (
+            select `id` as `courseId` from edu_training_class_course where `teacherId`=#{teacherId}
+        )
+    </select>
+
+</mapper>

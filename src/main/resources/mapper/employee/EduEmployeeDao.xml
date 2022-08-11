@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.employee.dao.EduEmployeeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.employee.entity.EduEmployeeEntity" id="eduEmployeeMap">
+        <result property="id" column="id"/>
+        <result property="employeeCode" column="employeeCode"/>
+        <result property="employeeName" column="employeeName"/>
+        <result property="gender" column="gender"/>
+<!--        <result property="departmentId" column="departmentId"/>-->
+<!--        <result property="departmentName" column="departmentName"/>-->
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="rankCode" column="rankCode"/>
+        <result property="rankName" column="rankName"/>
+        <result property="h4aAccountId" column="h4aAccountId"/>
+        <result property="createDepartmentId" column="createDepartmentId"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+        <result property="h4aUserGuid" column="h4aUserGuid"/>
+        <result property="h4aViewGuid" column="h4aViewGuid"/>
+        <result property="h4aAllPathName" column="h4aAllPathName"/>
+        <result property="h4aParentGuid" column="h4aParentGuid"/>
+        <result property="h4aDisplayName" column="h4aDisplayName"/>
+        <result property="h4aAttributes" column="h4aAttributes"/>
+        <result property="roleId" column="roleId"/>
+        <result property="roleCode" column="roleCode"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.common.dao.EduDepartmentEmployeeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduDepartmentEmployeeEntity" id="eduDepartmentEmployeeMap">
+        <result property="id" column="id"/>
+        <result property="departmentId" column="departmentId"/>
+        <result property="departmentCode" column="departmentCode"/>
+        <result property="employee_id" column="employee_id"/>
+        <result property="h4aGuid" column="h4aGuid"/>
+        <result property="delete" column="delete"/>
+        <result property="last_update_time" column="last_update_time"/>
+        <result property="isMain" column="isMain"/>
+    </resultMap>
+
+
+</mapper>

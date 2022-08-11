@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.common.dao.EduDepartmentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduDepartmentEntity" id="eduDepartmentMap">
+        <result property="id" column="id"/>
+        <result property="departmentCode" column="departmentCode"/>
+        <result property="departmentName" column="departmentName"/>
+        <result property="parentId" column="parentId"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="createDepartmentId" column="createDepartmentId"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+        <result property="status" column="status"/>
+        <result property="departmentAllPath" column="departmentAllPath"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <select id="findByCode" resultType="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduDepartmentEntity">
+        select a.* from
+            edu_department a
+        LEFT JOIN edu_department_employee b on a.departmentCode = b.departmentCode
+        where b.h4aGuid = #{h4aUserGuid} and a.type = 1
+    </select>
+    <select id="findDepartmentName" resultType="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduDepartmentEntity">
+        SELECT
+            DISTINCT departmentName
+        FROM
+            `edu_department`
+        WHERE
+            `type` = 1
+          AND departmentName LIKE concat("%","海关")
+          AND departmentName != "南京海关"
+          AND departmentAllPath = CONCAT("中国海关\\南京海关\\",departmentName)
+        GROUP BY departmentName
+    </select>
+
+</mapper>

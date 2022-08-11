@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.performance.dao.EduStudyPerformanceDetailDao">
+
+    <select id="selectOnlineTimeNotPassCount" resultType="java.lang.Integer">
+        SELECT
+            count( spd.id )
+        FROM
+        edu_study_performance_detail AS spd
+        LEFT JOIN edu_study_performance_import_detail AS spid ON spd.importDetailId = spid.id
+        WHERE
+            (spd.isException != 1 OR spd.checkStatus != 1 OR spd.isException IS NULL or spd.checkStatus IS NULL )
+            AND spid.onlineTrainingTime &lt; #{onlineTime} AND spd.performanceId=#{performanceId};
+    </select>
+
+    <!--脱产于培训学时总和 - 不包含不参与考核的人-->
+    <select id="selectOffWorkTimeNotIncludeExc" resultType="java.lang.Float">
+        SELECT
+            SUM(spid.offlineTrainingTime)
+        FROM
+            edu_study_performance_detail AS spd
+        LEFT JOIN edu_study_performance_import_detail AS spid ON spd.importDetailId = spid.id
+        WHERE
+            (spd.isException != 1 OR spd.checkStatus != 1 OR spd.isException IS NULL or spd.checkStatus IS NULL )
+          AND spd.userType=#{userType} AND spd.performanceId=#{performanceId};
+    </select>
+
+    <!--脱产培训参训人数 - 不包含不参与考核的人-->
+    <select id="selectOffWorkPeopleNumNotIncludeExc" resultType="java.lang.Integer">
+        SELECT
+            count(spd.id)
+        FROM
+            edu_study_performance_detail AS spd
+        LEFT JOIN edu_study_performance_import_detail AS spid ON spd.importDetailId = spid.id
+        WHERE
+            (spd.isException != 1 OR spd.checkStatus != 1 OR spd.isException IS NULL or spd.checkStatus IS NULL )
+          AND spd.userType=#{userType} AND spd.performanceId=#{performanceId} AND spid.offlineTrainingTime>0;
+    </select>
+
+    <!--参训人数 - 不包含不参与考核的人-->
+    <select id="selectPeopleNumNotIncludeExc" resultType="java.lang.Integer">
+        SELECT
+            spd.id,spd.userType,spd.h4aAllPathName,spid.onlineTrainingTime,spid.offlineTrainingTime,spd.isException,spd.checkStatus
+-- 		count(spd.id)
+        FROM
+            edu_study_performance_detail AS spd
+                LEFT JOIN edu_study_performance_import_detail AS spid ON spd.importDetailId = spid.id
+        WHERE
+            (spd.isException != 1 OR spd.checkStatus != 1 OR spd.isException IS NULL or spd.checkStatus IS NULL )
+          AND spd.userType=#{userType} AND spd.performanceId=#{performanceId} AND (spid.onlineTrainingTime>0 and spid.offlineTrainingTime>0);
+    </select>
+
+    <!--获取不通过人的数量-->
+    <select id="selectUnPassCount" resultType="java.lang.Integer">
+        select * from edu_study_performance_detail as spd
+        where
+            (spd.isException != 1 OR spd.checkStatus != 1 OR spd.isException IS NULL or spd.checkStatus IS NULL )
+          and spd.isPass!=1 and (spd.isInnerCustoms=0 or spd.isInnerCustoms=1) and spd.performanceId=#{performanceId};
+    </select>
+
+</mapper>

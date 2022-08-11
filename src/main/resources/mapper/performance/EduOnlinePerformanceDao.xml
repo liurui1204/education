@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.performance.dao.EduOnlinePerformanceDao">
+
+<!--	&lt;!&ndash; 可根据自己的需求，是否要使用 &ndash;&gt;-->
+<!--    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.teacherInner.entity.EduInnerTeacherEntity" id="eduInnerTeacherMap">-->
+<!--        <result property="id" column="id"/>-->
+<!--        <result property="teacherCode" column="teacher_code"/>-->
+<!--        <result property="teacherName" column="teacher_name"/>-->
+<!--        <result property="teacherLevel" column="teacher_level"/>-->
+<!--        <result property="departmentId" column="department_id"/>-->
+<!--        <result property="departmentName" column="department_name"/>-->
+<!--        <result property="teacherMobile" column="teacher_mobile"/>-->
+<!--        <result property="teacherEmail" column="teacher_email"/>-->
+<!--        <result property="status" column="status"/>-->
+<!--        <result property="applyTime" column="apply_time"/>-->
+<!--        <result property="checkNextDepartmentId" column="check_next_department_id"/>-->
+<!--        <result property="checkTime" column="check_time"/>-->
+<!--        <result property="checkBy" column="check_by"/>-->
+<!--        <result property="checkMemo" column="check_memo"/>-->
+<!--        <result property="employStartDate" column="employ_start_date"/>-->
+<!--        <result property="employEndDate" column="employ_end_date"/>-->
+<!--        <result property="trainingBaseId" column="training_base_id"/>-->
+<!--        <result property="trainingBaseName" column="training_base_name"/>-->
+<!--        <result property="createTime" column="create_time"/>-->
+<!--        <result property="updateTime" column="update_time"/>-->
+<!--        <result property="createBy" column="create_by"/>-->
+<!--        <result property="updateBy" column="update_by"/>-->
+<!--        <result property="isEnable" column="is_enable"/>-->
+<!--    </resultMap>-->
+<!--    List<EduOnlinePerformanceVo> queryOnlinePerformanceList(Page<EduOnlinePerformanceVo> page, Map<String, Object> params);-->
+    <select id="queryOnlinePerformanceList"
+            resultType="com.mohe.nanjinghaiguaneducation.modules.performance.dto.EduOnlinePerformanceDto">
+        SELECT a.id,a.name,a.passRate,a.createTime,a.lastModify,a.isAllStuff
+        FROM edu_online_performance a
+        where  1=1
+        <if test="name != null and name != ''">
+            and a.name = #{name}
+        </if>
+        <if test="passRate != null and passRate != ''">
+            and a.passRate = #{passRate}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            and a.createTime = #{createTime}
+        </if>
+        <if test="lastModify != null and lastModify != ''">
+            and a.lastModify = #{lastModify}
+        </if>
+        <if test="passRate != null and passRate != ''">
+            and a.passRate = #{passRate}
+        </if>
+
+        ORDER BY a.createTime desc
+    </select>
+<!--&lt;!&ndash;    EduOnlinePerformanceDetail1VO selectDepartmentSituationById(String id);&ndash;&gt;-->
+<!--    <select id="selectDepartmentSituationById" resultType="com.mohe.nanjinghaiguaneducation.modules.onlineTrainingCourse.vo.EduOnlinePerformanceDetail1VO" parameterType="string">-->
+<!--        select a.passRate,b.customsName as name,b.isPass-->
+<!--        from edu_online_performance as a-->
+<!--        left join   edu_online_performance_detail as b-->
+<!--        on a.id=b.onlineClassId where b.onlineClassId=#{id}-->
+<!--     </select>-->
+<!--&lt;!&ndash;    EduOnlinePerformanceDetail1VO selectDepartmentSituationMasterById(String id);&ndash;&gt;-->
+<!--    <select id="selectDepartmentSituationMasterById" resultType="com.mohe.nanjinghaiguaneducation.modules.onlineTrainingCourse.vo.EduOnlinePerformanceDetail1VO" parameterType="string">-->
+<!--        select a.passRate,b.department as name,b.isPass-->
+<!--        from edu_online_performance as a-->
+<!--        left join   edu_online_performance_detail as b-->
+<!--        on a.id=b.onlineClassId where b.onlineClassId=#{id}-->
+
+<!--        select * from edu_online_performance_detail where id=#{id} and is_innerCustoms = #{isInnerCustoms}-->
+<!--     </select>-->
+
+<!--    <select id="countOnlinePerformance" resultType="java.lang.Integer" parameterType="com.mohe.nanjinghaiguaneducation.modules.onlineTrainingCourse.entity.EduOnlinePerformanceDetailEntity">-->
+<!--        select count(*) from edu_online_performance_detail-->
+<!--        where 1=1-->
+<!--            <if test="onlineClassId != null and onlineClassId != ''">-->
+<!--                and  onlineClassId = #{onlineClassId}-->
+<!--            </if>-->
+<!--            <if test="isInnerCustoms != null and isInnerCustoms!= ''">-->
+<!--                and isInnerCustoms = #{isInnerCustoms}-->
+<!--            </if>-->
+<!--            <if test="customsName != null and customsName!= ''">-->
+<!--                and  customsName = #{customsName}-->
+<!--            </if>-->
+<!--            <if test="isPass != null and isPass!= ''">-->
+<!--                and  isPass = #{isPass}-->
+<!--            </if>-->
+
+<!--    </select>-->
+
+<!--    <select id="departmentOnlinePerformance" resultType="java.lang.Integer" parameterType="com.mohe.nanjinghaiguaneducation.modules.onlineTrainingCourse.entity.EduOnlinePerformanceDetailEntity">-->
+<!--        select count(*) from edu_online_performance_detail-->
+<!--        <where>-->
+<!--            <if test="onlineClassId != null and onlineClassId != ''">-->
+<!--                and  onlineClassId = #{onlineClassId}-->
+<!--            </if>-->
+<!--            <if test="isInnerCustoms != null and isInnerCustoms!= ''">-->
+<!--                and isInnerCustoms = #{isInnerCustoms}-->
+<!--            </if>-->
+<!--            <if test="customsName != null and customsName!= ''">-->
+<!--                and  department = #{department}-->
+<!--            </if>-->
+<!--            <if test="department != null">-->
+<!--                and  department = #{department}-->
+<!--            </if>-->
+<!--            <if test="isPass != null and isPass!= ''">-->
+<!--                and  isPass = #{isPass}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+
+<!--    <select id="queryMasterName" resultType="java.lang.String">-->
+<!--        select department from (select * from edu_online_performance_detail where onlineClassId = #{onlineClassId} and isInnerCustoms = #{isInnerCustoms}) as a group by department-->
+<!--    </select>-->
+
+<!--    <select id="queryslaveName" resultType="java.lang.String">-->
+<!--        select customsName from (select * from edu_online_performance_detail where onlineClassId = #{onlineClassId} and isInnerCustoms = #{isInnerCustoms}) as a group by customsName-->
+<!--    </select>-->
+
+<!--    EduOnlinePerformanceDetailVO selectDetail(String id);-->
+    <select id="selectDetail" resultType="com.mohe.nanjinghaiguaneducation.modules.performance.dto.EduOnlinePerformanceDetailDto" parameterType="string">
+        select departmentCustomsRate from edu_online_performance
+        where id=#{id}
+    </select>
+<!--    Integer updateById(EduOnlinePerformanceUpdateDto eduOnlinePerformanceUpdateDto);-->
+<!--    <update id="updateById" parameterType="com.mohe.nanjinghaiguaneducation.modules.performance.entity.EduOnlinePerformanceEntity" >-->
+<!--        update edu_online_performance set name =#{name} where id=#{id};-->
+<!--    </update>-->
+
+</mapper>

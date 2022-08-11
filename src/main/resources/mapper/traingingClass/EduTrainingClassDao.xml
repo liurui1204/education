@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingClass.dao.EduTrainingClassDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingClass.entity.EduTrainingClassEntity" id="eduTrainingClassMap">
+        <result property="id" column="id"/>
+        <result property="trainingPlanId" column="trainingPlanId"/>
+        <result property="trainingPlanName" column="trainingPlanName"/>
+        <result property="classCode" column="classCode"/>
+        <result property="className" column="className"/>
+        <result property="trainingType" column="trainingType"/>
+        <result property="trainingTrainee" column="trainingTrainee"/>
+        <result property="trainingStartDate" column="trainingStartDate"/>
+        <result property="trainingEndDate" column="trainingEndDate"/>
+        <result property="trainingClassHour" column="trainingClassHour"/>
+        <result property="trainingPeopleNum" column="trainingPeopleNum"/>
+        <result property="trainingContent" column="trainingContent"/>
+        <result property="trainingObjective" column="trainingObjective"/>
+        <result property="trainingAddr" column="trainingAddr"/>
+        <result property="feeOrigin" column="feeOrigin"/>
+        <result property="applyDepartmentId" column="applyDepartmentId"/>
+        <result property="applyDepartmentName" column="applyDepartmentName"/>
+        <result property="trainingWay" column="trainingWay"/>
+        <result property="tel" column="tel"/>
+        <result property="memo" column="memo"/>
+        <result property="needAssess" column="needAssess"/>
+        <result property="assessRate" column="assessRate"/>
+        <result property="enrollStartTime" column="enrollStartTime"/>
+        <result property="enrollEndTime" column="enrollEndTime"/>
+        <result property="status" column="status"/>
+        <result property="phase" column="phase"/>
+<!--        <result property="checkNextDepartmentId" column="checkNextDepartmentId"/>-->
+<!--        <result property="checkTime" column="checkTime"/>-->
+<!--        <result property="checkBy" column="checkBy"/>-->
+<!--        <result property="checkByDepartment" column="checkByDepartment"/>-->
+<!--        <result property="checkMemo" column="checkMemo"/>-->
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="updateBy" column="updateBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+<!--    <select id="getListByFilter"-->
+<!--            resultType="com.mohe.nanjinghaiguaneducation.modules.trainingClass.dto.EduTrainingClassResultDto">-->
+<!--        select a.* from edu_training_class a, edu_system_confirm b-->
+<!--        where a.id=b.originalId-->
+<!--        <if test="status!='' and status!=null and phase!='' and phase!=null ">-->
+<!--            and b.type='2' and b.phase=#{phase} and status=#{status}-->
+<!--        </if>-->
+<!--        <if test="trainingWay!='' and trainingWay!=null">-->
+<!--            and a.trainingWay=#{trainingWay}-->
+<!--        </if>-->
+<!--    </select>-->
+
+    <select id="findNormal" resultType="integer">
+        SELECT
+            count(*)
+        FROM
+             edu_training_class
+        WHERE
+            YEAR (createTime )= YEAR (
+            NOW())
+          AND ( STATUS = 3 OR phase > 1 )
+          AND finalTime > trainingEndDate
+    </select>
+    <select id="findOnline" resultType="integer">
+        SELECT
+            count(*)
+        FROM
+            edu_training_class b
+        where
+            YEAR (createTime )= YEAR (
+            NOW())
+          AND (STATUS = 3 OR phase > 1 )
+          AND trainingWay=#{i}
+    </select>
+    <select id="findTotal" resultType="integer">
+        SELECT
+            count(*)
+        FROM
+            edu_training_class
+        WHERE
+            YEAR (createTime )= YEAR (
+            NOW())
+          AND (STATUS = 3 OR phase > 1 )
+    </select>
+
+    <select id="findFinalNum" resultType="integer">
+        select count(*)
+        FROM
+          edu_training_class
+        WHERE
+            YEAR ( createTime )= YEAR (
+            NOW())
+          AND status=3 and phase=4
+    </select>
+
+</mapper>

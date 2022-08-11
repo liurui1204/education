@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.common.dao.EduSystemRolesEmployeeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.common.dto.EduRoleEmployeeListDto" id="eduEmployeeMap">
+        <result property="id" column="id"/>
+        <result property="employeeCode" column="employeeCode"/>
+        <result property="employeeName" column="employeeName"/>
+        <result property="departmentName" column="departmentName"/>
+        <result property="jobTitle" column="jobTitle"/>
+        <result property="mobile" column="mobile"/>
+    </resultMap>
+
+    <select id="selectEmployeeInfoByRole" resultType="com.mohe.nanjinghaiguaneducation.modules.common.dto.EduRoleEmployeeListDto">
+        select DISTINCT e.id,e.employeeCode,e.employeeName,d.departmentAllPath as departmentName,e.rankName as jobTitle,e.mobile from edu_system_roles_employee as sre
+         left join edu_employee as e on sre.employeeId=e.id
+         left join edu_department as d on d.id in (select departmentId from edu_department_employee where h4aGuid = e.h4aUserGuid)
+         where sre.roleCode=#{roleCode} group by e.id,e.employeeCode
+    </select>
+
+    <select id="selectRolesEmployeeEntity" resultType="com.mohe.nanjinghaiguaneducation.modules.common.entity.EduSystemRolesEmployeeEntity">
+        select a.* from edu_system_roles_employee a left join edu_system_roles b
+            on b.id=a.rolesId where a.h4aGuid=#{h4aUserGuid} ORDER BY `order`
+    </select>
+
+</mapper>

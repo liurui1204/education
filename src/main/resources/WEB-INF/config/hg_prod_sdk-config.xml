@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+    <module name="h4aIdentity">
+        <!-- 海关H4A接口服务地址示例，以下为示例地址。请按照实际环境进行配置,请与H4A人员联系 -->
+        <group name="wsAddress">
+            <!-- 身份服务 -->
+            <configValue key="OguReaderService">
+                http://10.72.0.122/CupaaDistributedService/OguReaderService.svc
+            </configValue>
+            <!-- 授权服务 -->
+            <configValue key="AccreditReaderService">
+                http://10.72.0.122/CupaaDistributedService/AccreditReaderService.svc
+            </configValue>
+            <!-- 应用注册服务 -->
+            <configValue key="RegisterAppService">
+                http://10.99.101.200/AppRegisterService/RegisterAppReaderService.svc
+            </configValue>
+        </group>
+    </module>
+    <module name="passportSSO">
+        <!-- 海关H4A单点登录地址示例，以下为示例地址。请按照实际环境进行配置 -->
+        <group name="url">
+            <configValue key="authenticateUrl">http://10.99.101.200/Passport/SsoLogin.aspx</configValue>
+            <configValue key="logOffUrl">http://10.99.101.200/Passport/LogOff.aspx</configValue>
+        </group>
+    </module>
+</application>

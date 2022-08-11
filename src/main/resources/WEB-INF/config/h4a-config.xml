@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+    <module name="h4aIdentity">
+        <group name="wsCache">
+            <!-- cacheControl 值为off为开启缓存，值为on为关闭缓存 -->
+            <configValue key="cacheControl">on</configValue>
+            <!-- cacheTime和cacheClearTime值为缓存设置的参数，默认值即可 -->
+            <configValue key="cacheTime">300000000</configValue>
+            <configValue key="cacheClearTime">1</configValue>
+            <!-- initialDelay和clearCachePeriod参数默认值即可，无需修改 -->
+            <configValue key="initialDelay">0</configValue>
+            <configValue key="clearCachePeriod">1440</configValue>
+        </group>
+    </module>
+    <module name="passportSSO">
+        <group name="passport">
+            <!-- appID是应用的ID号 -->
+            <configValue key="appID">ZHJYPT</configValue>
+            <!-- appSlidingTime是应用的过期时间 -->
+            <configValue key="appSlidingTime">0</configValue>
+            <!-- idAuthenticationMode是系统支持（要求）认证返回的认证模式 -->
+            <configValue key="idAuthenticationMode">forms</configValue>
+            <!-- paramT参数默认值即可，无需修改 -->
+            <configValue key="paramT">token</configValue>
+            <!-- defaultAuthenticationMode是默认认证方式 -->
+            <configValue key="defaultAuthenticationMode">FormsAuthentication</configValue>
+        </group>
+        <group name="url">
+            <!-- logoffAutoRedirect参数即注销是否允许自动跳转 -->
+            <configValue key="logoffAutoRedirect">true</configValue>
+            <!-- 默认为/index.jsp 实际地址为应用的相对访问路径，如http://127.0.0.1:8080/default/ssoDemo/demo/testSSOLogin.jsp，应填写为/ssoDemo/demo/testSSOLogin.jsp -->
+            <configValue key="logoffToDefaultUriString">/index.jsp</configValue>
+            <!-- logOffCallBackUrl的uri是注销回调地址 -->
+            <configValue key="logOffCallBackUrl">/logout.jsp</configValue>
+            <!-- H4A登录时，如有多个身份，如需选择某个身份登录，选择身份页面配置，例：/sso/selectIdentity.jsp -->
+            <configValue key="select_identity_page"></configValue>
+        </group>
+        <group name="defaultAuthenticationMode">
+            <!-- 默认值即可 -->
+            <configValue key="*.jpg">Anonymous</configValue>
+            <!-- 默认值即可 -->
+            <configValue key="*.gif">Anonymous</configValue>
+            <!-- 默认值即可 -->
+            <configValue key="/anonymous.html">Anonymous</configValue>
+            <!-- WindowsAuthentication是域认证，默认值 -->
+            <configValue key="/WindowsAuthentication/*.jsp">WindowsAuthentication</configValue>
+            <configValue key="/WindowsAuthentication/test*">WindowsAuthentication</configValue>
+        </group>
+        <!-- 不需passport filter拦截的页面在次配置，没有不拦截页面，configValue key="url"的值为空 -->
+        <group name="notInterceptUrl">
+            <!-- start,end,center三种选项，分别对应前匹配、后匹配及全匹配 -->
+            <configValue key="position">start</configValue>
+            <!-- 多个URL，中间使用","分隔 -->
+            <configValue key="url"></configValue>
+            <!-- URL解密实现方法，继承cn.gov.customs.casp.sdk.h4a.sso.IPassportDecryption -->
+            <configValue key="decryption"></configValue>
+        </group>
+    </module>
+    <module name="SSOAddress">
+        <group name="ssoAddress">
+            <!-- 海关H4AIPassportSSO接口实现类相对路径，如不继承IPassportSSO接口则不用填写实现类路径 -->
+            <!-- 如果配置了自己应用的登录登出，可在自己应用中放入个性化登录数据、信息等, 例如test.cn.gov.customs.ssoDemo.PassPortSSO；请根据实际情况判断是否实现此接口 -->
+            <configValue key="PassportManager">h4a.sso.sdk.sample.SamplePassportSSO</configValue>
+        </group>
+    </module>
+    <module name="h4a_default">
+        <group name="wcf_default">
+            <!-- 默认值 -->
+            <configValue key="default_cache_max_capacity">10000</configValue>
+            <!-- 视角（BASE_VIEW、CCIC_VIEW） -->
+            <configValue key="default_BaseView">CCIC_VIEW</configValue>
+            <!-- 应用名称 -->
+            <configValue key="default_Application_name">ZHJYPT</configValue>
+        </group>
+        <group name="Intercepter_load_switch">
+            <!-- 默认值 -->
+            <configValue key="Intercepter_Control">false</configValue>
+        </group>
+    </module>
+    <module name="object_param">
+        <!-- FrameworkUserInit.initUserObject 中使用的动态配置参数：getBeanObjectsDetail_lastParam为
+            oguBeanReaderHelper .getBeanObjectsDetail最后一个参数；organizationCategory_lastParam为iOguBeanReader
+            .getBeanObjectParentOrganizations最后一个参数 -->
+        <group name="parameter_obj">
+            <configValue key="getBeanObjectsDetail_lastParam">PERSON_ID,SIDELINE</configValue>
+            <configValue key="organizationCategory_lastParam">CUSTOMS_CODE</configValue>
+        </group>
+    </module>
+</application>

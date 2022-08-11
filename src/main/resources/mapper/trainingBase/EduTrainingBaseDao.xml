@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mohe.nanjinghaiguaneducation.modules.trainingBase.dao.EduTrainingBaseDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.mohe.nanjinghaiguaneducation.modules.trainingBase.entity.EduTrainingBaseEntity" id="eduTrainingBaseMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="content" column="content"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="customsName" column="customsName"/>
+        <result property="displayInHome" column="displayInHome"/>
+        <result property="displayType" column="displayType"/>
+        <result property="createTime" column="createTime"/>
+        <result property="createBy" column="createBy"/>
+        <result property="isEnable" column="isEnable"/>
+    </resultMap>
+
+    <select id="selectCustomsList" resultType="java.lang.String">
+        select customsName from edu_training_base where customsName != "" AND customsName IS NOT NULL group by customsName
+    </select>
+
+</mapper>
